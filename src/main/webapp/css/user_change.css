@@ -1,0 +1,59 @@
+/* menu.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.avatar-area {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.avatar1 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.menu-area {
+    background-color: #fff;
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-area label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.menu-area input[type="text"],
+.menu-area input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.menu-area input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.menu-area input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+

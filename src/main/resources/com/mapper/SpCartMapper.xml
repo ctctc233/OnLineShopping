@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.SpCartMapper">
+
+    <resultMap id="CartResultMap" type="com.pojo.ShoppingCart" autoMapping="true">
+        <id property="spCartId" column="sp_cart_id"/>
+        <result property="spName" column="account"/>
+        <result property="spGoodsId" column="sp_goods_id"/>
+        <collection property="spGoods" ofType="com.pojo.Goods">
+            <id property="id" column="goods_id"/>
+            <result property="name" column="goods_name"/>
+            <result property="price" column="goods_price"/>
+            <result property="goodsDetail" column="goods_detail"/>
+        </collection>
+    </resultMap>
+    <select id="selectCartByUserId" resultMap="CartResultMap" parameterType="map">
+        SELECT sp.sp_cart_id  AS sp_cart_id,
+               sp.account     AS account,
+               sp.sp_goods_id AS sp_goods_id,
+               g.price        AS goods_price,
+               g.goods_name   AS goods_name,
+               g.goods_detail AS goods_detail
+        FROM shopping_cart sp
+                 LEFT JOIN goods g ON sp.sp_goods_id = g.goods_id
+        WHERE account = #{userId}
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+</mapper>

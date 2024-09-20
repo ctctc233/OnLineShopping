@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: url('https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_1280.jpg') no-repeat;
+            background-size: 100% 130%;
+        }
+
+        #login_box {
+            width: 20%;
+            height: 400px;
+            background-color: #00000060;
+            margin: auto;
+            margin-top: 10%;
+            text-align: center;
+            border-radius: 10px;
+            padding: 50px 50px;
+        }
+
+        h2 {
+            color: #ffffff90;
+            margin-top: 5%;
+        }
+
+        #input-box {
+            margin-top: 5%;
+        }
+
+        span {
+            color: #fff;
+        }
+
+        input {
+            border: 0;
+            width: 60%;
+            font-size: 15px;
+            color: #fff;
+            background: transparent;
+            border-bottom: 2px solid #fff;
+            padding: 5px 10px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        .btn {
+            margin-top: 50px;
+            width: 60%;
+            height: 30px;
+            border-radius: 10px;
+            border: 0;
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            font-size: 15px;
+            background-image: linear-gradient(to right, #30cfd0, #330867);
+        }
+
+        #sign_up {
+            margin-top: 45%;
+            margin-left: 60%;
+        }
+
+        a {
+            color: #b94648;
+        }
+    </style>
+</head>
+
+<body>
+<div id="login_box">
+    <h2>LOGIN</h2>
+    <form id="login_form" action="./LoginServlet" method="post">
+        <div id="input_box">
+            <input type="text" placeholder="请输入用户名" id="username" name="username">
+            <br>
+            <span class="error_msg" id="username_error" style="display:none;">用户名应为3-12位英文字符</span>
+        </div>
+        <div class="input_box">
+            <input type="password" placeholder="请输入密码" id="password" name="password">
+            <br>
+            <span class="error_msg" id="password_error" style="display:none;">密码应为6-12位英文与数字字符</span>
+        </div>
+        <div>
+            <input type="submit" value="登录" class="btn">
+        </div>
+        <!--        <button>登录</button>-->
+    </form>
+
+    <br>
+</div>
+<script>
+    var username = document.getElementById("username");
+    var password = document.getElementById("password");
+    // 验证用户名
+    username.onblur = checkUsername;
+    var username_reg = /^[a-zA-Z]{3,12}$/;
+
+    function checkUsername() {
+        var flag = username.value.length >= 3 && username.value.length <= 12;
+        if (!flag || !username_reg.test(username.value)) {
+            document.getElementById("username_error").style.display = "block";
+        } else {
+            document.getElementById("username_error").style.display = "none";
+        }
+        return flag;
+    }
+
+    // 验证密码
+    password.onblur = checkPassword;
+
+    var password_reg = /^[a-zA-Z0-9]{6,12}$/;
+
+    function checkPassword() {
+        var flag = password.value.length >= 6 && password.value.length <= 12;
+        if (!flag || !password_reg.test(password.value)) {
+            document.getElementById("password_error").style.display = "block";
+        } else {
+            document.getElementById("password_error").style.display = "none";
+        }
+        return flag;
+    }
+
+    // 登录总验证
+    var regForm = document.getElementById("login_form");
+    regForm.onsubmit = function () {
+        var flag = checkUsername() && checkPassword();
+        if (flag) {
+            //alert("登录成功");
+            return true;
+        } else {
+            alert("请检查输入是否正确");
+            return false;
+        }
+    }
+</script>
+</body>
+</html>
+
