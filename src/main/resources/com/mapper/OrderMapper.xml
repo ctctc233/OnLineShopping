@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.OrderMapper">
+    <insert id="insertOrderDetail">
+        INSERT INTO order_detail (goods_id, order_code, goods_num)
+        VALUES
+            <foreach collection="list" item="item" separator=",">
+                (#{item.goodsId}, #{item.orderCode}, #{item.goodsCount})
+            </foreach>
+    </insert>
+
+    <resultMap id="OrderResultMap" type="com.pojo.OrderDetail" autoMapping="true">
+        <id property="goodsId" column="goods_id"/>
+        <result property="orderCode" column="order_code"/>
+        <result property="goodsNum" column="goods_num"/>
+        <collection property="goods" ofType="com.pojo.Goods">
+            <id property="id" column="goods_id"/>
+            <result property="name" column="goods_name"/>
+            <result property="price" column="goods_price"/>
+            <result property="goodsDetail" column="goods_detail"/>
+        </collection>
+    </resultMap>
+    <select id="selectOrderIdDetail" resultMap="OrderResultMap" parameterType="map">
+        SELECT od.goods_id    AS goods_id,
+               od.order_code  AS order_code,
+               od.goods_num   AS goods_num,
+               g.price        AS goods_price,
+               g.goods_name   AS goods_name,
+               g.goods_detail AS goods_detail
+        FROM order_detail od
+                 LEFT JOIN goods g ON od.goods_id = g.goods_id
+        WHERE order_code = #{orderCode}
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+</mapper>
